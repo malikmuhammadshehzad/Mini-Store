@@ -10,7 +10,7 @@ const Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-const Navigation = useNavigation() 
+ 
 
   //   useSelector is used for getting the store data
   const {userData, isLoading, isSuccess, isError, errorMessage} = useSelector(

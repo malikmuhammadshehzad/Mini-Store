@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {View, Text, Pressable, Image, ScrollView} from 'react-native';
+import {View, Text, Pressable, Image, ScrollView, Button, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {addToCart, quantityDecrement} from '../../redux/reducers/CartReducer';
+import {addToCart, clearCart, quantityDecrement} from '../../redux/reducers/CartReducer';
+import { useNavigation } from '@react-navigation/native';
 
 const CartScreen = () => {
   const {cartData} = useSelector(state => state.Cart);
   // const [finalCartData, setFinalCartData]= useState([])
+  const navigation = useNavigation()
   console.log(' Cart Screen Data  ', cartData);
   // console.log(' finalCartData:  ', finalCartData);
   const dispatch = useDispatch();
@@ -15,6 +17,10 @@ const CartScreen = () => {
   const removeDataToCard = item => {
     dispatch(quantityDecrement(item.id));
   };
+  const ClearData = item =>{
+    dispatch(clearCart(item))
+    navigation.navigate('orderComplete')
+  }
   // useEffect(()=>{
   //   const filterCartData = cartData.filter(item => item.quantity > 0)
   //   if(filterCartData){
@@ -130,6 +136,9 @@ const CartScreen = () => {
             </Pressable>
           </View>
         ))}
+        <TouchableOpacity  style={{marginTop:20 ,}} >
+        <Button onPress={ClearData}  title='Place your Order ' />
+        </TouchableOpacity>
       </Pressable>
     </ScrollView>
   );
